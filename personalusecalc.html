@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Water Usage Calculator</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Germania+One&family=Itim&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Itim', cursive;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* Updated Background logic for Full Page Fit */
+    background: url("c:/Users/yahme/Downloads/Frontend-20260501T114705Z-3-001/Frontend/Finalocean.png") no-repeat center center fixed;
+    background-size: cover; /* This makes it fit the whole page */
+}
+
+/* Darkens the background slightly so the white calculator pops */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: -1;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.93);
+    width: 500px;
+    padding: 30px 28px;
+    border-radius: 18px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    position: relative; /* Keeps it above the body::before */
+}
+
+h2 {
+    font-family: 'Germania One', cursive;
+    text-align: center;
+    color: #144758;
+    margin-bottom: 25px;
+    font-size: 32px;
+}
+
+input, select, button, label, span, div {
+    font-family: 'Itim', cursive;
+}
+
+input, select {
+    width: 100%;
+    padding: 8px 0;
+    margin: 10px 0 20px 0;
+    border: none;
+    border-bottom: 1px solid #bbb;
+    background: transparent;
+    outline: none;
+    font-size: 16px;
+}
+
+.option-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 12px 0 5px 0;
+    font-size: 16px;
+    color: #144758;
+}
+
+.radio-group {
+    display: flex;
+    gap: 10px;
+}
+
+.radio-group input {
+    display: none;
+}
+
+.radio-group label {
+    cursor: pointer;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 14px;
+    background: #e0e0e0;
+    transition: 0.3s;
+}
+
+.radio-group input:checked + label {
+    background: #144758;
+    color: white;
+}
+
+button {
+    width: 70%;
+    display: block;
+    margin: 25px auto 0 auto;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #144758 , #1b6b7a);
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+#result, #advice {
+    margin-top: 15px;
+    text-align: center;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Let’s calculate your water usage!</h2>
+
+    <input type="number" id="users" placeholder="Number of users">
+    <input type="number" id="usage" placeholder="Base water usage per person (L/day)">
+
+    <input type="number" id="showerTimes" placeholder="Showers (times/day per person)">
+    <input type="number" id="showerMinutes" placeholder="Shower duration (minutes)">
+    <input type="number" id="baths" placeholder="Baths per week">
+
+    <div class="option-row">
+        <span>Washing Machine</span>
+        <div class="radio-group">
+            <input type="radio" id="wash-yes" name="wash" onclick="toggle('washing', true)">
+            <label for="wash-yes">Yes</label>
+
+            <input type="radio" id="wash-no" name="wash" onclick="toggle('washing', false)" checked>
+            <label for="wash-no">No</label>
+        </div>
+    </div>
+    <input type="number" id="washing" placeholder="Times per week" disabled>
+
+    <div class="option-row">
+        <span>Dishwasher</span>
+        <div class="radio-group">
+            <input type="radio" id="dish-yes" name="dish" onclick="toggle('dishwasher', true)">
+            <label for="dish-yes">Yes</label>
+
+            <input type="radio" id="dish-no" name="dish" onclick="toggle('dishwasher', false)" checked>
+            <label for="dish-no">No</label>
+        </div>
+    </div>
+    <input type="number" id="dishwasher" placeholder="Times per week" disabled>
+
+    <div class="option-row">
+        <span>Garden Irrigation</span>
+        <div class="radio-group">
+            <input type="radio" id="garden-yes" name="gardenRadio" onclick="toggle('garden', true)">
+            <label for="garden-yes">Yes</label>
+
+            <input type="radio" id="garden-no" name="gardenRadio" onclick="toggle('garden', false)" checked>
+            <label for="garden-no">No</label>
+        </div>
+    </div>
+    <input type="number" id="garden" placeholder="Hours per week" disabled>
+
+    <input type="number" id="saving" placeholder="Water-saving appliances (%)">
+    <input type="number" id="leak" placeholder="Leak Factor (%)">
+    <select id="season">
+        <option value="1">Normal</option>
+        <option value="1.2">Summer</option>
+        <option value="0.9">Winter</option>
+    </select>
+
+    <button type="button" onclick="check()">Check usage</button>
+
+    <div id="result"></div>
+    <div id="advice"></div>
+</div>
+
+<script>
+function toggle(id, enable) {
+    let input = document.getElementById(id);
+    input.disabled = !enable;
+    if (!enable) input.value = 0;
+}
+
+function check() {
+    let users = +document.getElementById("users").value;
+    let base = +document.getElementById("usage").value;
+    let showerTimes = +document.getElementById("showerTimes").value;
+    let showerMinutes = +document.getElementById("showerMinutes").value;
+    let baths = +document.getElementById("baths").value;
+    let washing = +document.getElementById("washing").value || 0;
+    let dishwasher = +document.getElementById("dishwasher").value || 0;
+    let garden = +document.getElementById("garden").value || 0;
+    let saving = +document.getElementById("saving").value || 0;
+    let leak = +document.getElementById("leak").value || 0;
+    let season = +document.getElementById("season").value;
+
+    let result = document.getElementById("result");
+    let advice = document.getElementById("advice");
+
+    if (users <= 0 || base <= 0) {
+        result.innerText = "Please enter valid values.";
+        advice.innerText = "";
+        return;
+    }
+
+    const SHOWER = 10;
+    const BATH = 130;
+    const WASHING = 70;
+    const DISH = 12;
+    const GARDEN = 1000;
+
+    let total = users * base + users * showerTimes * showerMinutes * SHOWER + (baths * BATH) / 7 + (washing * WASHING) / 7 + (dishwasher * DISH) / 7 + (garden * GARDEN) / 7;
+    total *= (1 - saving / 100);
+    total *= (1 + leak / 100);
+    total *= season;
+
+    let perPerson = total / users;
+    result.innerText = "Total: " + total.toFixed(1) + " L/day | Per person: " + perPerson.toFixed(1) + " L/day";
+
+    if (perPerson > 150) {
+        advice.innerText = "High per-capita water use. Reduce showers, leaks, and outdoor use.";
+    } else if (perPerson >= 100) {
+        advice.innerText = "Medium per-capita usage. Some efficiency improvements are possible.";
+    } else {
+        advice.innerText = "Low per-capita usage. Water use is efficient.";
+    }
+}
+</script>
+
+</body>
+</html>

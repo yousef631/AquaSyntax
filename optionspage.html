@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AquaSyntax | Home</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- General Reset --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --dark-teal: #124e58;
+            --light-bg: #eaf1f2;
+            --box-light-blue: #dceef1;
+            --text-light: #ffffff;
+            --btn-teal: #227b87;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            overflow-x: hidden;
+            color: var(--dark-teal);
+        }
+
+        /* --- Background Video Fix --- */
+        .hero-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.25); 
+            z-index: -1;
+        }
+
+        /* --- Hero Section --- */
+        .hero-section {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center; 
+        }
+
+        /* --- BIGGER HERO CARD --- */
+        .hero-card {
+            background: white;
+            width: 850px; 
+            padding: 70px 90px; 
+            border-radius: 50px; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.35);
+            z-index: 10;
+        }
+
+        .hero-card .logo-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--btn-teal);
+        }
+
+        .hero-card .logo-area img {
+            width: 200px; 
+            height: 200px;
+            object-fit: contain;
+            margin-bottom: 20px;
+        }
+
+        .hero-card .logo-area span {
+            font-family: 'MuseoModerno', sans-serif;
+            font-size: 2.8rem; 
+            font-weight: 700;
+        }
+
+        /* --- BUTTONS AREA --- */
+        .hero-card .buttons-area {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 350px; /* Slightly wider to accommodate text */
+        }
+
+        .hero-card .buttons-area button {
+            width: 100%;
+            background-color: var(--btn-teal);
+            color: white;
+            border: none;
+            padding: 20px 30px;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .hero-card .buttons-area button:hover {
+            background-color: var(--dark-teal);
+            transform: scale(1.05) translateX(10px);
+        }
+
+        /* --- Content Sections --- */
+        .section {
+            padding: 120px 20px;
+            text-align: center;
+            background: white; 
+            position: relative;
+            z-index: 1;
+        }
+
+        .dark-section {
+            background-color: var(--dark-teal);
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .section p.subtitle {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 70px;
+        }
+
+        .dark-section h2, .dark-section p.subtitle {
+            color: white;
+        }
+
+        /* --- Overlapping Layout --- */
+        .content-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .text-card {
+            width: 400px;
+            padding: 50px;
+            border-radius: 20px;
+            text-align: left;
+            position: relative;
+            z-index: 2; 
+            margin-right: -70px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .text-card.dark-card { background-color: var(--dark-teal); color: white; }
+        .text-card.light-card { background-color: #f7fbfc; color: var(--dark-teal); }
+
+        .image-container {
+            width: 550px;
+            height: 350px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+            overflow: hidden; 
+            background-color: #f0f7f8;
+        }
+
+        .image-container img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+        }
+
+        /* --- Footer --- */
+        .footer {
+            position: relative;
+            z-index: 1;
+            padding: 80px 20px;
+            background-color: var(--light-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .footer-logo img { width: 130px; margin-bottom: 10px; }
+
+        .footer-content p {
+            max-width: 400px;
+            font-size: 1.2rem;
+            color: var(--dark-teal);
+            margin-bottom: 25px;
+        }
+
+        .login-btn {
+            background-color: var(--dark-teal);
+            color: white;
+            padding: 15px 50px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: 0.3s;
+        }
+
+        /* --- Mobile Responsive --- */
+        @media (max-width: 768px) {
+            .hero-card { flex-direction: column; width: 95%; padding: 40px 20px; }
+            .hero-card .buttons-area { width: 100%; margin-top: 30px; }
+            .content-row { flex-direction: column; }
+            .text-card { margin-right: 0; margin-bottom: -40px; width: 95%; text-align: center; }
+            .image-container { width: 95%; padding-left: 0; height: 300px; }
+        }
+    </style>
+</head>
+<body>
+
+    <video class="hero-video" autoplay loop muted playsinline>
+        <source src="c:\Users\yahme\Downloads\Frontend-20260501T114705Z-3-001\Frontend\Untitled design (1).mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+
+    <header class="hero-section">
+        <div class="hero-card">
+            <div class="logo-area">
+                <img src="c:\Users\yahme\Downloads\Frontend-20260501T114705Z-3-001\Frontend\digital_tech_book_logo_design_template__7_-removebg-preview.png" alt="AquaSyntax Logo">
+                <span style="font-family:'MuseoModerno'; color:var(--btn-teal);"></span>
+            </div>
+            
+            <div class="buttons-area">
+                <button onclick="location.href='c:/Users/yahme/Downloads/Frontend-20260501T114705Z-3-001/Frontend/personalusecalc.html'">
+                    Water Calculator <span>🧮</span>
+                </button>
+                
+                <button onclick="location.href='c:/Users/yahme/Downloads/Frontend-20260501T114705Z-3-001/Frontend/tasks.html'">
+                    Personal use <span>👤</span>
+                </button>
+                
+                <button onclick="location.href='c:/Users/yahme/Downloads/Frontend-20260501T114705Z-3-001/Frontend/calc.html'">
+                    Agriculture <span>🌱</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="section">
+        <h2>How can you save water?</h2>
+        <p class="subtitle">small actions today make a big difference tomorrow</p>
+        <div class="content-row">
+            <div class="text-card dark-card">
+                <h3>Fix leaks</h3>
+                <p>A dripping faucet or pipe can waste hundreds of liters over time. Repairing leaks saves a lot of water effortlessly.</p>
+            </div>
+            <div class="image-container">
+                <img src="c:\Users\yahme\Downloads\Frontend-20260501T114705Z-3-001\Frontend\fix.png" alt="Fix leaks image">
+            </div>
+        </div>
+    </section>
+
+    <section class="section dark-section">
+        <div class="content-row">
+            <div class="text-card light-card">
+                <h3>Take shorter showers</h3>
+                <p>Reducing shower time by just 2–3 minutes can save dozens of liters every day. It's one of the easiest ways to help the planet.</p>
+            </div>
+            <div class="image-container" style="background-color: #f7fbfc;">
+                <img src="c:\Users\yahme\Downloads\Frontend-20260501T114705Z-3-001\Frontend\tany.png" alt="Shower image">
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="content-row">
+            <div class="text-card dark-card">
+                <h3>Turn off the tap</h3>
+                <p>• While brushing your teeth<br>• While washing dishes<br>This simple habit saves a huge amount of water daily and protects our resources.</p>
+            </div>
+            <div class="image-container">
+                <img src="c:\Users\yahme\Downloads\Frontend-20260501T114705Z-3-001\Frontend\a5era.png" alt="Tap image">
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-logo">
+             <img src="c:\Users\yahme\Downloads\Frontend-20260501T114705Z-3-001\Frontend\digital_tech_book_logo_design_template__7_-removebg-preview.png" alt="AquaSyntax Logo">
+        </div>
+        <div class="footer-content">
+            <p><strong>Our mission</strong> is to build a future in which people live in harmony with nature.</p>
+            <button class="login-btn" onclick="location.href='login.html'">Login &rarr;</button>
+        </div>
+    </footer>
+
+</body>
+</html>

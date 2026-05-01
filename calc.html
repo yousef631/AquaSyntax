@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Water Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=Germania+One&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
+</head>
+
+<style>
+:root{
+    --main-color:#CFE0E4;
+    --dark-color:#5F8F96;
+    --text-color:#1f3c3b;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Segoe UI', sans-serif;
+} 
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background-image:url("c:\\Users\\yahme\\Downloads\\Frontend-20260501T114705Z-3-001\\Frontend\\222.jpeg");
+    background-size:cover;
+    background-position:center;
+}
+
+
+.container{
+    width:450px;
+    background:rgba(207,224,228,0.95);
+    padding:45px 35px;
+    border-radius:25px;
+    backdrop-filter: blur(8px);
+    box-shadow:0 15px 40px rgba(0,0,0,0.15);
+}
+
+h1{
+    text-align:center;
+    color:var(--text-color);
+    margin-bottom:30px;
+    font-size:24px;
+    font-family: 'Germania One', cursive;
+}
+
+.input-group{
+    margin-bottom:25px;
+}
+
+.input-group small {
+    display:block;
+    color:#5F8F96;
+    font-family: 'Itim', cursive;
+    font-size:13px;
+    margin-top:3px;
+}
+
+
+label{
+    font-size:15px;
+    color:var(--text-color);
+    font-family: 'Itim', cursive;
+}
+
+input, select{
+    width:100%;
+    border:none;
+    border-bottom:2px solid var(--dark-color);
+    padding:10px 2px;
+    outline:none;
+    background:transparent;
+    font-size:15px;
+    margin-top:8px;
+    color:var(--text-color);
+    font-family: 'Itim', cursive;
+}
+
+input:focus, select:focus{
+    border-bottom:3px solid var(--text-color);
+}
+
+button{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:30px;
+    background:var(--dark-color);
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    margin-top:10px;
+    transition:0.3s;
+    font-family: 'Itim', cursive;
+
+}
+
+button:hover{
+    background:var(--text-color);
+}
+.hero-bg-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: -1; 
+        }
+.result{
+    margin-top:25px;
+    text-align:center;
+    font-weight:bold;
+    color:var(--text-color);
+    font-size:16px;
+    font-family: Itim;
+
+}
+</style>
+</head>
+
+<body>
+  <video class="hero-bg-img" autoplay loop muted playsinline>
+            <source src="c:\Users\yahme\Downloads\Frontend-20260501T114705Z-3-001\Frontend\Untitled design (1).mp4" type="video/mp4">
+        </video>
+<div class="container">
+    <h1>How much water does your plant need</h1>
+
+    <div class="input-group">
+        <label>Choose your crop</label>
+        <select id="crop">
+            <option value="">Select crop</option>
+            <option value="wheat">Wheat </option>
+            <option value="rice">Rice </option>
+            <option value="cotton">Cotton </option>
+        </select>
+    </div>
+
+    <div class="input-group">
+        <label>Area (m²)</label>
+        <input type="number" id="area">
+        <small>Enter your area</small>
+    </div>
+
+    <div class="input-group">
+        <label>Season</label>
+        <select id="season">
+            <option value="">Select season</option>
+            <option value="summer">Summer</option>
+            <option value="winter">Winter</option>
+            <option value="spring">Spring</option>
+            <option value="autumn">Autumn</option>
+        </select>
+    </div>
+
+    <button onclick="calculateWater()">Calculate</button>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+function calculateWater(){
+
+    let crop = document.getElementById("crop").value;
+    let area = document.getElementById("area").value;
+    let season = document.getElementById("season").value;
+
+    if(crop === "" || area === "" || season === ""){
+        document.getElementById("result").innerText = "Please fill all fields";
+        return;
+    }
+
+    let baseWater;
+
+    if(crop === "wheat"){
+        baseWater = 5;
+    } 
+    else if(crop === "rice"){
+        baseWater = 10;
+    } 
+    else if(crop === "cotton"){
+        baseWater = 7;
+    }
+
+    if(season === "summer"){
+        baseWater *= 1.2;
+    } 
+    else if(season === "winter"){
+        baseWater *= 0.8;
+    }
+
+    let totalWater = area * baseWater;
+    document.getElementById("result").innerText = `Your plant needs ${totalWater.toFixed(2)} liters of water per day.`;
+}
+</script>
+
+</body>
+</html>

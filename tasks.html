@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aquasyntax</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Germania+One&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Germania One', cursive;
+}
+
+/* 1. Video Background Container */
+#video-bg {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+    z-index: -2; 
+    object-fit: cover; 
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 30px;
+    background: black; 
+}
+
+/* 2. Overlay Logic */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 40, 50, 0.45);
+    z-index: -1; 
+}
+
+/* Title */
+.page-title{
+    color:white;
+    text-align:center;
+    font-size:42px;
+    font-weight:700;
+    max-width:900px;
+    margin-bottom:50px;
+    text-shadow:0 3px 8px rgba(0,0,0,0.5);
+    position: relative; 
+}
+
+/* Card */
+.container{
+    width:100%;
+    max-width:700px;
+    background: rgba(238, 243, 245, 0.9); 
+    border-radius:30px;
+    padding:50px 40px;
+    box-shadow:0 20px 50px rgba(0,0,0,0.4);
+    position: relative;
+}
+
+/* Timeline */
+.timeline{
+    position:relative;
+    padding-left:45px;
+    width:100%;
+}
+
+.timeline::before{
+    content:"";
+    position:absolute;
+    left:25px;
+    top:25px;
+    width:3px;
+    height:85%;
+    background:#1f5560;
+}
+
+/* Mission item */
+.mission{
+    position:relative;
+    margin-bottom:32px;
+}
+
+.mission::before{
+    content:"";
+    position:absolute;
+    left:-32px;
+    top:24px;
+    width:18px;
+    height:18px;
+    background:#1f5560;
+    border-radius:50%;
+    border:4px solid #eef3f5;
+}
+
+/* Mission box */
+.mission-box{
+    background:#1f5560;
+    color:white;
+    padding:25px 28px;
+    border-radius:18px;
+    box-shadow:0 6px 18px rgba(0,0,0,0.25);
+    width:100%;
+    transition: 0.3s ease; /* Smooth transition for hover */
+}
+
+/* NEW: Clickable Styles */
+.mission-link {
+    text-decoration: none;
+    display: block;
+}
+
+.mission-link:hover .mission-box {
+    background: #2a6d7a; /* Lighter blue on hover */
+    transform: translateY(-5px); /* Pops up slightly */
+}
+
+.mission-box h3{
+    font-size:28px;
+    margin-bottom:8px;
+}
+
+.mission-box p{
+    font-size:20px;
+    opacity:0.95;
+}
+
+/* Congrats button */
+.congrats{
+    margin-top:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+}
+
+.fire{
+    width:60px;
+    height:60px;
+    object-fit:contain;
+}
+
+.congrats button{
+    background:#3a6d78;
+    border:none;
+    color:white;
+    padding:18px 50px;
+    font-size:26px;
+    border-radius:15px;
+    cursor:pointer;
+    transition:0.3s;
+    box-shadow:0 5px 15px rgba(0,0,0,0.3);
+    flex:1;
+}
+
+.congrats button:hover{
+    background:#1a4f59;
+    transform:scale(1.05);
+}
+
+/* Locked task styles */
+.mission-link.locked {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.mission-link.locked .mission-box {
+    background: #999999;
+    cursor: not-allowed;
+}
+
+.mission-link.locked .mission-box:hover {
+    background: #999999;
+    transform: none;
+}
+
+.lock-icon {
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 20px;
+}
+
+/* Complete button for each mission */
+.mission-complete-btn {
+    background: #27ae60;
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: 0.3s;
+    width: 100%;
+    font-family: 'Germania One', cursive;
+}
+
+.mission-complete-btn:hover {
+    background: #229954;
+    transform: scale(1.02);
+}
+
+.mission-complete-btn.completed {
+    background: #95a5a6;
+    cursor: default;
+}
+
+.mission-complete-btn.completed:hover {
+    background: #95a5a6;
+    transform: scale(1);
+}
+
+/* Reset button styles */
+.reset-btn {
+    background: #e74c3c;
+    border: none;
+    color: white;
+    padding: 12px 30px;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-family: 'Germania One', cursive;
+}
+
+.reset-btn:hover {
+    background: #c0392b;
+    transform: scale(1.05);
+}
+
+@media (max-width:500px){
+    .container{
+        width:100%;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<video autoplay muted loop playsinline id="video-bg">
+    <source src="c:\Users\yahme\Downloads\Frontend-20260501T114705Z-3-001\Frontend\Untitled design (1).mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
+<h2 class="page-title">
+Welcome to Aquasyntax, where creativity meets smarter water use.
+</h2>
+
+<div class="container">
+    <div class="timeline">
+        
+        <div class="mission">
+            <a href="c:\Users\yahme\Downloads\Frontend-20260501T114705Z-3-001\Frontend\1stpersonaluse.html" class="mission-link" data-mission="1">
+                <div class="mission-box">
+                    <h3>Mission 1 <span class="lock-icon" style="display:none;">🔒</span></h3>
+                    <p>Here is your first mission!</p>
+                </div>
+            </a>
+            <button class="mission-complete-btn" onclick="completeMission(1)">Mark as Complete</button>
+        </div>
+
+        <div class="mission">
+            <a href="c:\Users\yahme\Downloads\Frontend-20260501T114705Z-3-001\Frontend\2ndpersonaluse.html" class="mission-link" data-mission="2">
+                <div class="mission-box">
+                    <h3>Mission 2 <span class="lock-icon">🔒</span></h3>
+                    <p>This is your second mission!</p>
+                </div>
+            </a>
+            <button class="mission-complete-btn" onclick="completeMission(2)">Mark as Complete</button>
+        </div>
+
+        <div class="mission">
+            <a href="c:\Users\yahme\Downloads\Frontend-20260501T114705Z-3-001\Frontend\3rdpersonaluse.html" class="mission-link" data-mission="3">
+            <div class="mission-box">
+                <h3>Mission 3 <span class="lock-icon">🔒</span></h3>
+                <p>Almost there!</p>
+            </div>
+            </a>
+            <button class="mission-complete-btn" onclick="completeMission(3)">Mark as Complete</button>
+        </div>
+
+        <div class="mission">
+            <a href="c:\Users\yahme\Downloads\Frontend-20260501T114705Z-3-001\Frontend\4thpersonaluse.html" class="mission-link" data-mission="4">
+            <div class="mission-box">
+                <h3>Mission 4 <span class="lock-icon">🔒</span></h3>
+                <p>Thank you for caring about the environment!</p>
+            </div>
+            </a>
+            <button class="mission-complete-btn" onclick="completeMission(4)">Mark as Complete</button>
+        </div>
+
+        <div class="mission">
+            <a href="c:\Users\yahme\Downloads\Frontend-20260501T114705Z-3-001\Frontend\5thperonaluse.html" class="mission-link" data-mission="5">
+            <div class="mission-box">
+                <h3>Mission 5 <span class="lock-icon">🔒</span></h3>
+                <p>You are done for today's water saving missions!</p>
+            </div>
+            </a>
+            <button class="mission-complete-btn" onclick="completeMission(5)">Mark as Complete</button>
+        </div>
+    </div>
+
+    <div class="congrats">
+        <img src="c:\Users\yahme\Downloads\Frontend-20260501T114705Z-3-001\Frontend\image-removebg-preview (27).png" alt="flame" class="fire">
+        <button>Congratulations!</button>
+    </div>
+
+    <div style="text-align: center; margin-top: 30px;">
+        <button class="reset-btn" onclick="resetAllTasks()">Reset All Tasks</button>
+    </div>
+</div>
+
+<script>
+// Initialize mission progress on page load
+document.addEventListener('DOMContentLoaded', function() {
+    updateMissionStates();
+});
+
+// Update mission locked/unlocked states
+function updateMissionStates() {
+    for (let i = 1; i <= 5; i++) {
+        const missionLink = document.querySelector(`[data-mission="${i}"]`);
+        const completeBtn = missionLink.parentElement.querySelector('.mission-complete-btn');
+        const lockIcon = missionLink.querySelector('.lock-icon');
+        
+        // Mission 1 is always unlocked
+        if (i === 1) {
+            missionLink.classList.remove('locked');
+            if (lockIcon) lockIcon.style.display = 'none';
+        } else {
+            // Check if previous mission is completed
+            const prevMissionCompleted = localStorage.getItem(`mission${i - 1}Completed`);
+            
+            if (prevMissionCompleted === 'true') {
+                missionLink.classList.remove('locked');
+                if (lockIcon) lockIcon.style.display = 'none';
+            } else {
+                missionLink.classList.add('locked');
+                if (lockIcon) lockIcon.style.display = 'inline-block';
+            }
+        }
+        
+        // Update button state based on completion and locked status
+        if (localStorage.getItem(`mission${i}Completed`) === 'true') {
+            completeBtn.textContent = '✓ Completed';
+            completeBtn.classList.add('completed');
+            completeBtn.disabled = true;
+        } else if (missionLink.classList.contains('locked')) {
+            completeBtn.textContent = 'Mark as Complete';
+            completeBtn.classList.remove('completed');
+            completeBtn.disabled = true;
+        } else {
+            completeBtn.textContent = 'Mark as Complete';
+            completeBtn.classList.remove('completed');
+            completeBtn.disabled = false;
+        }
+    }
+}
+
+// Mark mission as complete
+function completeMission(missionNumber) {
+    localStorage.setItem(`mission${missionNumber}Completed`, 'true');
+    updateMissionStates();
+    
+    // Show a brief confirmation
+    alert(`Mission ${missionNumber} completed! Mission ${missionNumber + 1} is now unlocked.`);
+}
+
+// Reset all tasks
+function resetAllTasks() {
+    if (confirm('Are you sure you want to reset all tasks? Your progress will be cleared.')) {
+        for (let i = 1; i <= 5; i++) {
+            localStorage.removeItem(`mission${i}Completed`);
+        }
+        updateMissionStates();
+        alert('All tasks have been reset! You can now start over.');
+    }
+}
+</script>

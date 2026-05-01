@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AquaSyntax</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dawning+of+a+New+Day&family=Itim&family=Luxurious+Roman&family=MuseoModerno:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --dark-teal: #1a4a5a;
+            --light-bg: #eef4f5;
+            --text-dark: #1a4a5a;
+            --text-light: #ffffff;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            font-family: 'Itim', cursive; 
+        }
+
+        
+        .top-nav {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            font-family: 'MuseoModerno', sans-serif;
+            color: var(--text-dark);
+            background-color: transparent;
+            z-index: 10;
+            background-color: var(--light-bg);
+        }
+        
+        .top-nav .logo-text {
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-dark);
+        }
+        
+       
+        .top-nav .logo-icon {
+            width: 50px;
+            height: 50px;
+        }
+
+    
+        .hero-section {
+            position: relative; 
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+   
+        .hero-bg-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: 1; 
+        }
+
+        .hero-section h1 {
+            font-family: 'Dawning of a New Day', cursive;
+            font-size: 7rem;
+            margin-top: 0px;
+            color: white;
+            font-weight: normal;
+            position: relative;
+            z-index: 2;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        .info-section {
+            padding: 60px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .light-bg {
+            background-color: var(--light-bg);
+        }
+
+        .dark-bg {
+            background-color: var(--dark-teal);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .light-bg .section-title {
+            color: var(--dark-teal);
+        }
+
+        .dark-bg .section-title {
+            color: var(--light-bg);
+        }
+
+        
+        .content-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .text-box {
+            width: 350px;
+            padding: 30px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            z-index: 2; 
+            position: relative;
+            margin-right: -80px; 
+            margin-top: 60px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .text-box.dark-box {
+            background-color: var(--dark-teal);
+            color: var(--text-light);
+        }
+
+        .text-box.light-box {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+        }
+        .image-box {
+            width: 500px;
+            height: 320px;
+            border-radius: 10px;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .footer {
+            padding: 50px 20px;
+            background-color: var(--light-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .footer-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--dark-teal);
+        }
+
+        .footer-logo img {
+            width: 100px;
+            margin-bottom: 5px;
+        }
+
+        .footer-logo span {
+            font-family: 'MuseoModerno', sans-serif;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            max-width: 400px;
+        }
+
+        .footer-content p {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .footer-content p strong {
+            color: var(--dark-teal);
+        }
+        .login-btn {
+            font-family: 'Luxurious Roman', serif;
+            background-color: var(--dark-teal);
+            color: white;
+            border: none;
+            padding: 8px 30px;
+            border-radius: 20px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: opacity 0.3s;
+        }
+
+        .login-btn:hover {
+            opacity: 0.9;
+        }
+
+        
+        @media (max-width: 768px) {
+            .top-nav {
+                padding: 15px 20px;
+            }
+
+            .top-nav .logo-text {
+                font-size: 1rem;
+            }
+
+            .hero-section h1 {
+                font-size: 3rem;
+            }
+
+            .content-container {
+                flex-direction: column;
+            }
+            .text-box {
+                margin-right: 0;
+                margin-top: 0;
+                margin-bottom: -40px; 
+                width: 90%;
+            }
+            .image-box {
+                width: 90%;
+            }
+            .footer {
+                flex-direction: column;
+                text-align: center;
+            }
+            .footer-content {
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="top-nav">
+        <div class="logo-text">
+            <img src="c:\Users\yahme\Downloads\Frontend-20260501T114705Z-3-001\Frontend\digital_tech_book_logo_design_template__7_-removebg-preview.png" alt="logo" class="logo-icon">
+            AquaSyntax
+        </div>
+        <div>contact us</div>
+    </nav>
+
+    <header class="hero-section">
+        <video class="hero-bg-img" autoplay loop muted playsinline>
+            <source src="c:\Users\yahme\Downloads\Frontend-20260501T114705Z-3-001\Frontend\Untitled design (1).mp4" type="video/mp4">
+        </video>
+        
+        <h1>AquaSyntax</h1>
+    </header>
+
+    <section class="info-section light-bg">
+        <h2 class="section-title">Why you should save water?</h2>
+        <div class="content-container">
+            <div class="text-box dark-box">
+                <p>Saving water in personal use is important due to water scarcity. Conserving water for drinking, washing, and cleaning helps protect resources for future generations.</p>
+            </div>
+            <div class="image-box">
+                <img src="c:\Users\yahme\Downloads\Frontend-20260501T114705Z-3-001\Frontend\Screenshot 2026-02-22 154706.png" alt="Water saving">
+            </div>
+        </div>
+    </section>
+
+    <section class="info-section dark-bg">
+        <h2 class="section-title">Why you should save water?</h2>
+        <div class="content-container">
+            <div class="text-box light-box">
+                <p>Water conservation in agriculture is essential because most freshwater is used for farming. Knowing each crop's water needs helps reduce waste and protect crops.</p>
+            </div>
+            <div class="image-box">
+                <img src="c:\Users\yahme\Downloads\Frontend-20260501T114705Z-3-001\Frontend\sea_2nd.png" alt="Agriculture water">
+            </div>
+        </div>
+    </section>
+
+    <section class="info-section light-bg">
+        <h2 class="section-title">Why you should save water?</h2>
+        <div class="content-container">
+            <div class="text-box dark-box">
+                <p>Saving water is vital for society. It provides clean water, reduces conflicts over resources, and improves health and living conditions.</p>
+            </div>
+            <div class="image-box">
+                <img src="c:\Users\yahme\Downloads\Frontend-20260501T114705Z-3-001\Frontend\3rd.png" alt="Society water">
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-logo">
+            <img src="c:\Users\yahme\Downloads\Frontend-20260501T114705Z-3-001\Frontend\digital_tech_book_logo_design_template__7_-removebg-preview.png" alt="AquaSyntax Logo">
+            
+        </div>
+        <div class="footer-content">
+            <p><strong>Our mission</strong> is to build a future in which people live in harmony with nature</p>
+            <button class="login-btn" onclick="window.location.href='c:\\Users\\yahme\\Downloads\\Frontend-20260501T114705Z-3-001\\Frontend\\Login.html'">Login &rarr;</button>
+
+        </div>
+    </footer>
+
+</body>
+</html>
